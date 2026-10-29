@@ -16,7 +16,6 @@ import { Accordion } from "@/components/ui/accordion";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  CheckCircle2,
   Heart,
   Leaf,
   PawPrint,
