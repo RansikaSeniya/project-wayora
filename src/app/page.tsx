@@ -206,7 +206,7 @@ export default function Home() {
       : products.filter((p) => p.category === selectedCategory);
 
   return (
-    <main className="min-h-screen bg-[#FFF9FB] text-[#1F1924] overflow-x-hidden">
+    <main className="min-h-screen bg-gradient-to-b from-[#FFD4E3] via-[#FFDFEB] to-[#FFD2E2] text-[#2A1621] overflow-x-hidden">
       {/* 1. Full-Screen Animated Pet Hero */}
       <Hero />
 
@@ -331,7 +331,7 @@ export default function Home() {
       {/* 3. Nutrition & Ingredients Showcase with Scroll Pop-Up Images */}
       <section
         id="nutrition"
-        className="py-24 bg-gradient-to-b from-[#FFF2F6] to-[#FFF9FB] border-y border-[#F8E2EA]"
+        className="py-24 bg-gradient-to-b from-[#FFC4DA] via-[#FFD4E4] to-[#FFC9DE] border-y border-[#F7A8C4]"
       >
         <div className="max-w-[1360px] mx-auto px-5 sm:px-8 md:px-14">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
@@ -502,7 +502,7 @@ export default function Home() {
       {/* 5. Verified Pet Parent Reviews & FAQ Accordion (#reviews) */}
       <section
         id="reviews"
-        className="py-24 bg-[#FFF0F5]/70 border-t border-[#F7DFEA]"
+        className="py-24 bg-gradient-to-b from-[#FFC8DD] to-[#FFD8E7] border-t border-[#F7B0C9]"
       >
         <div className="max-w-[1360px] mx-auto px-5 sm:px-8 md:px-14">
           <motion.div
@@ -657,7 +657,7 @@ export default function Home() {
       </section>
 
       {/* Clean Minimal Footer */}
-      <footer className="py-12 border-t border-[#F2E2E9] bg-white px-5 sm:px-8 md:px-14">
+      <footer className="py-12 border-t border-[#F7B0C9] bg-[#FFC8DC] px-5 sm:px-8 md:px-14">
         <div className="max-w-[1360px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div
             className="flex items-center gap-2 text-[#E8457A]"

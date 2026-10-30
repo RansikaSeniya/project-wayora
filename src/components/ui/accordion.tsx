@@ -30,8 +30,8 @@ export function Accordion({
             className={cn(
               "rounded-3xl border transition-all duration-300 overflow-hidden",
               isOpen
-                ? "bg-white border-[#FFB3C8] shadow-[0_14px_35px_-12px_rgba(232,69,122,0.14)]"
-                : "bg-white/75 border-[#EFE3E8] hover:border-[#FFD0DF]"
+                ? "bg-[#FFF3F8] border-[#FF8FB1] shadow-[0_14px_35px_-12px_rgba(232,69,122,0.2)]"
+                : "bg-[#FFEAF2]/80 border-[#F9C2D6] hover:border-[#FF9EBB]"
             )}
           >
             <button

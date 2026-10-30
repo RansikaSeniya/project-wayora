@@ -258,7 +258,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#FFF9FB] text-[#1F1924] overflow-x-hidden">
+    <main className="min-h-screen bg-gradient-to-b from-[#FFD4E3] via-[#FFDFEB] to-[#FFD2E2] text-[#2A1621] overflow-x-hidden">
       {/* 1. Immersive Pink/Coral Hero with 3-Card Polaroid Fan & Watermark */}
       <section
         className="relative w-full min-h-[90vh] flex flex-col justify-between overflow-hidden"
@@ -375,7 +375,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 30, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.25 }}
-              className="relative w-full max-w-[420px] rounded-[36px] bg-white/95 backdrop-blur-md p-4 shadow-[0_30px_70px_-15px_rgba(140,20,70,0.45)] border border-white"
+              className="relative w-full max-w-[420px] rounded-[36px] bg-[#FFE8F1]/90 backdrop-blur-md p-4 shadow-[0_30px_70px_-15px_rgba(140,20,70,0.45)] border border-white/70"
             >
               {/* Crossfading / Shading Image Container */}
               <div className="relative h-80 sm:h-96 w-full rounded-[28px] overflow-hidden bg-[#FFE4EE]">
@@ -504,7 +504,7 @@ export default function AboutPage() {
       {/* 3. Interactive Kitchen Process Switcher (#kitchen) */}
       <section
         id="kitchen"
-        className="py-24 bg-gradient-to-b from-[#FFF0F5] via-[#FFF6F9] to-[#FFF9FB] border-y border-[#F6DFEA]"
+        className="py-24 bg-gradient-to-b from-[#FFC4DA] via-[#FFD4E4] to-[#FFC9DE] border-y border-[#F7A8C4]"
       >
         <div className="max-w-[1360px] mx-auto px-5 sm:px-8 md:px-14">
           <motion.div
@@ -545,8 +545,8 @@ export default function AboutPage() {
                     onClick={() => setActiveStep(idx)}
                     className={`cursor-pointer rounded-[28px] p-6 border-2 transition-all duration-300 ${
                       isSelected
-                        ? "bg-white border-[#FF6F9C] shadow-[0_22px_50px_-12px_rgba(232,69,122,0.2)] scale-[1.01]"
-                        : "bg-white/70 border-[#F2E2E9] hover:bg-white hover:border-[#FFB3C8]"
+                        ? "bg-[#FFF3F8] border-[#FF5C8D] shadow-[0_22px_50px_-12px_rgba(232,69,122,0.25)] scale-[1.01]"
+                        : "bg-[#FFE8F1]/75 border-[#F9BDD3] hover:bg-[#FFF0F6] hover:border-[#FF8FB1]"
                     }`}
                   >
                     <div className="flex items-start gap-4">
@@ -592,7 +592,7 @@ export default function AboutPage() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: -15 }}
                   transition={{ type: "spring", stiffness: 120, damping: 16 }}
-                  className="rounded-[36px] bg-white p-5 sm:p-6 shadow-2xl border border-[#F3E0E8]"
+                  className="rounded-[36px] bg-[#FFF2F7] p-5 sm:p-6 shadow-2xl border border-[#FBBDD4]"
                 >
                   <div className="relative h-72 sm:h-80 rounded-[28px] overflow-hidden mb-6">
                     <img
@@ -730,9 +730,9 @@ export default function AboutPage() {
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 105, damping: 16 }}
-          className="rounded-[34px] bg-white border border-[#F2E0E8] shadow-xl overflow-hidden"
+          className="rounded-[34px] bg-[#FFF2F7] border border-[#FBBDD4] shadow-xl overflow-hidden"
         >
-          <div className="grid grid-cols-1 md:grid-cols-12 bg-[#FFF3F7] border-b border-[#F2E0E8] p-5 sm:px-8 font-bold text-sm" style={display}>
+          <div className="grid grid-cols-1 md:grid-cols-12 bg-[#FFE0EC] border-b border-[#F8BBD2] p-5 sm:px-8 font-bold text-sm" style={display}>
             <div className="md:col-span-4 text-[#6E5C6B]">Nutritional Standard</div>
             <div className="md:col-span-4 text-[#E8457A] flex items-center gap-1.5 mt-2 md:mt-0">
               <PawPrint className="w-4 h-4 fill-current" />
@@ -877,7 +877,7 @@ export default function AboutPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-[#F2E2E9] bg-white px-5 sm:px-8 md:px-14">
+      <footer className="py-12 border-t border-[#F7B0C9] bg-[#FFC8DC] px-5 sm:px-8 md:px-14">
         <div className="max-w-[1360px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <Link
             href="/"
