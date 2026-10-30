@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { animate, motion, useInView } from "framer-motion";
+import { animate, motion, useInView, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,8 @@ import {
   PawPrint,
   ShieldCheck,
   Sparkles,
+  Star,
+  XCircle,
 } from "lucide-react";
 
 const display = { fontFamily: "var(--font-display)" } as const;
@@ -45,7 +47,7 @@ function CountUp({
     if (!inView || !ref.current) return;
     const node = ref.current;
     const controls = animate(0, to, {
-      duration: 2,
+      duration: 2.1,
       ease: "easeOut",
       onUpdate: (v) =>
         (node.textContent = `${prefix}${Math.round(v).toLocaleString()}${suffix}`),
@@ -65,52 +67,68 @@ const stats = [
     value: 45,
     suffix: "k+",
     label: "Happy Pets Fed Daily",
-    note: "Across cats, dogs & kittens",
+    note: "Cats, dogs & growing kittens",
+    accent: "from-[#FF6F9C] to-[#E8457A]",
   },
   {
     value: 100,
     suffix: "%",
     label: "Human-Grade Whole Cuts",
     note: "Zero meat meal or by-products",
+    accent: "from-[#2BB673] to-[#1D945B]",
   },
   {
     value: 82,
     suffix: "°C",
-    label: "Gentle Steam Temperature",
-    note: "Locks in natural nutrients",
+    label: "Gentle Steam Cooking",
+    note: "Locks in natural aroma & taurine",
+    accent: "from-[#FF9F43] to-[#EE7B11]",
   },
   {
-    value: 30,
-    suffix: "+",
-    label: "Vet-Crafted Recipes",
-    note: "Tailored for every life stage",
+    value: 99,
+    suffix: "%",
+    label: "Clean-Bowl Excitement",
+    note: "Tested by picky Persian cats",
+    accent: "from-[#9B6BFF] to-[#7742E6]",
   },
 ];
 
 const milestones = [
   {
     year: "2021",
-    title: "The First Kitchen Batch",
+    tag: "Where It Started",
+    title: "One Picky Rescue Cat Named Mochi",
     description:
-      "When our founder’s rescue cat Mochi refused ultra-processed kibble after a digestive illness, we teamed up with a holistic vet to steam our first salmon & pumpkin recipe in a home kitchen.",
+      "When Mochi refused ultra-processed dry pellets after a digestive flare-up, we teamed up with a holistic vet to steam our first wild salmon & sweet pumpkin recipe in a home kitchen.",
+    image:
+      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=700&q=80",
   },
   {
     year: "2023",
-    title: "Dedicated Human-Grade Pet Kitchen",
+    tag: "Human-Grade Facility",
+    title: "Our Dedicated Fresh Pet Kitchen",
     description:
-      "We opened our own USDA-inspected culinary facility where every recipe is prepared using the exact same hygiene and ingredient standards as human baby food.",
+      "We opened our own culinary kitchen where every batch is prepared using the exact same hygiene, cold-chain, and ingredient standards as human baby food.",
+    image:
+      "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=700&q=80",
   },
   {
     year: "2025",
-    title: "Over 1 Million Clean Bowls",
+    tag: "Community Milestone",
+    title: "1 Million+ Fresh Bowls Served",
     description:
-      "Word spread from picky Persian cats to energetic Golden Retrievers—celebrating over one million fresh pouches served with a 99.2% clean-bowl rate.",
+      "From picky kittens to energetic Golden Retrievers, over 45,000 pet parents switched to Wayora for softer coats, healthier digestion, and happier mealtimes.",
+    image:
+      "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=700&q=80",
   },
   {
     year: "2026",
-    title: "Next-Gen Personalized Nutrition",
+    tag: "Future of Pet Care",
+    title: "Personalized Superfood Nutrition",
     description:
-      "Expanding our functional superfood blends with sustainably sourced wild fish, goat milk mousses, and recyclable freshness pouches.",
+      "Launching functional goat-milk mousses, sustainable wild-caught fish recipes, and 100% recyclable freshness pouches.",
+    image:
+      "https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=700&q=80",
   },
 ];
 
@@ -119,31 +137,60 @@ const kitchenSteps = [
     step: "01",
     icon: Leaf,
     title: "Farm & Ocean Direct Sourcing",
+    subtitle: "Whole Muscle Meat & Organic Produce",
     description:
-      "We partner directly with sustainable fisheries and cage-free farms. Only whole muscle meat, nutrient-rich organs, and organic garden produce enter our kitchen.",
+      "We partner directly with sustainable fisheries and cage-free farms. Only whole salmon fillets, tender chicken breast, and organic pumpkin enter our kitchen.",
+    highlights: ["Wild-Caught Pacific Salmon", "Pasture-Raised Poultry", "Zero Artificial Preservatives"],
     image:
-      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=900&q=85",
-    badge: "100% Traceable",
+      "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=1000&q=85",
+    badge: "100% Traceable Farms",
   },
   {
     step: "02",
     icon: Flame,
     title: "Slow-Steamed in Small Batches",
+    subtitle: "Gently Cooked at Exactly 82°C",
     description:
-      "Instead of high-heat extrusion that burns away amino acids, we gently steam ingredients at 82°C to preserve natural moisture, aroma, and taurine.",
+      "Unlike factory kibble blasted at 180°C, our gentle 82°C steam method preserves natural meaty juices, delicate omega-3 oils, and essential amino acids.",
+    highlights: ["78% Natural Moisture Retained", "Rich Meaty Broth Texture", "2x Higher Nutrient Absorption"],
     image:
-      "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=900&q=85",
+      "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=1000&q=85",
     badge: "82°C Gentle Steam",
   },
   {
     step: "03",
     icon: Microscope,
     title: "Vet-Tested & Freshness Sealed",
+    subtitle: "Exceeds AAFCO All-Life-Stage Standards",
     description:
-      "Every single batch undergoes microbiological and nutrient profile testing by board-certified veterinary nutritionists before leaving our doors.",
+      "Every single batch undergoes microbiological safety checks and nutrient profile verification by board-certified veterinary nutritionists before sealing.",
+    highlights: ["Lab-Tested Every Batch", "Pantry-Safe Steam Seal", "Balanced Taurine & Vitamins"],
     image:
-      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=900&q=85",
-    badge: "AAFCO Exceeded",
+      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=1000&q=85",
+    badge: "Vet Approved",
+  },
+];
+
+const comparisonRows = [
+  {
+    feature: "Primary Protein Source",
+    wayora: "100% whole salmon, chicken & beef cuts",
+    kibble: "Rendered meat meal & dehydrated powders",
+  },
+  {
+    feature: "Cooking Method",
+    wayora: "Gently steamed once at 82°C",
+    kibble: "High-heat extruded up to 180°C multiple times",
+  },
+  {
+    feature: "Natural Moisture Level",
+    wayora: "78% hydrating natural broth",
+    kibble: "Under 10% (causes chronic dehydration)",
+  },
+  {
+    feature: "Preservatives & Fillers",
+    wayora: "Zero corn, wheat, soy, or synthetic chemicals",
+    kibble: "Loaded with starch binders & artificial sprays",
   },
 ];
 
@@ -175,38 +222,45 @@ const team = [
 ];
 
 export default function AboutPage() {
+  const [activeStep, setActiveStep] = useState(0);
+
   return (
     <main className="min-h-screen bg-[#FFF9FB] text-[#1F1924] overflow-x-hidden">
-      {/* 1. Hero Section matching Wayora Pink/Coral Theme */}
+      {/* 1. Immersive Pink/Coral Hero with 3-Card Polaroid Fan & Watermark */}
       <section
-        className="relative w-full min-h-[84vh] flex flex-col justify-between overflow-hidden"
+        className="relative w-full min-h-[90vh] flex flex-col justify-between overflow-hidden"
         style={{
           background:
             "radial-gradient(70% 80% at 50% 45%, #FFB3C8 0%, #FF8FB1 45%, #FF6F9C 100%)",
         }}
       >
+        {/* Giant Background Watermark Text */}
+        <div
+          style={display}
+          className="absolute top-[18%] inset-x-0 text-center text-[19vw] font-bold text-white/10 leading-none select-none pointer-events-none whitespace-nowrap"
+        >
+          OUR STORY
+        </div>
+
         <Navbar />
 
-        <div className="relative z-20 max-w-[1360px] mx-auto w-full px-6 sm:px-10 md:px-14 py-14 lg:py-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="relative z-20 max-w-[1380px] mx-auto w-full px-6 sm:px-10 md:px-14 py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Hero Copy */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-6 space-y-6">
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.9, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/25 backdrop-blur-md border border-white/40 text-white text-xs sm:text-sm font-semibold"
+              style={display}
             >
-              <Badge
-                variant="lime"
-                className="px-4 py-1.5 text-xs sm:text-sm shadow-sm"
-              >
-                <Heart className="w-3.5 h-3.5 fill-current" />
-                <span>Our Story & Mission</span>
-              </Badge>
+              <Sparkles className="w-4 h-4 text-[#FFF6C5]" />
+              <span>Born From Love • Backed By Veterinary Science</span>
             </motion.div>
 
             <h1
               style={display}
-              className="text-white font-bold leading-[0.94] tracking-tight text-5xl sm:text-6xl lg:text-7xl drop-shadow-[0_6px_0_rgba(190,40,100,0.22)]"
+              className="text-white font-bold leading-[0.93] tracking-tight text-5xl sm:text-6xl xl:text-[68px] drop-shadow-[0_6px_0_rgba(190,40,100,0.22)]"
             >
               {["WE COOK REAL", "FOOD FOR PETS", "WHO ARE FAMILY."].map(
                 (line, idx) => (
@@ -225,7 +279,18 @@ export default function AboutPage() {
                       }}
                       className="inline-block"
                     >
-                      {line}
+                      <motion.span
+                        animate={{ y: [0, -4, 0] }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 3.8,
+                          delay: idx * 0.3,
+                          ease: "easeInOut",
+                        }}
+                        className="inline-block"
+                      >
+                        {line}
+                      </motion.span>
                     </motion.span>
                   </span>
                 )
@@ -238,10 +303,10 @@ export default function AboutPage() {
               transition={{ delay: 0.55, duration: 0.6 }}
               className="text-white/95 text-base sm:text-lg max-w-xl leading-relaxed"
             >
-              At Wayora, we believe your best friend deserves better than brown
-              factory pellets. We gently steam whole cuts of meat and organic
-              superfoods so every bowl adds years of purrs, zoomies, and tail
-              wags.
+              We started Wayora with a simple question: why do we feed our most
+              loyal companions ultra-processed brown pellets? Our kitchen
+              gently steams real whole meats and garden superfoods for visible
+              health in every bowl.
             </motion.p>
 
             <motion.div
@@ -255,93 +320,130 @@ export default function AboutPage() {
                 style={display}
                 className="group inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#D9F27A] text-[#2d3a00] text-base sm:text-lg font-semibold shadow-xl shadow-black/10 hover:scale-105 active:scale-95 transition"
               >
-                Inside Our Kitchen
+                Tour Our Kitchen
                 <span className="w-10 h-10 rounded-full bg-[#2d3a00] text-[#D9F27A] flex items-center justify-center">
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </span>
               </Link>
+
+              <Link
+                href="/#shop"
+                style={display}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white text-sm sm:text-base font-semibold hover:bg-white hover:text-[#E8457A] transition"
+              >
+                <span>View All Recipes</span>
+              </Link>
             </motion.div>
           </div>
 
-          {/* Right Animated Floating Photo Collage */}
-          <div className="lg:col-span-5 relative flex justify-center">
+          {/* Right 3-Card Interactive Polaroid Fan Collage */}
+          <div className="lg:col-span-6 relative h-[430px] sm:h-[490px] flex items-center justify-center">
+            {/* Left Tilted Polaroid Card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotate: -6 }}
-              animate={{ opacity: 1, scale: 1, rotate: -3 }}
-              transition={{
-                type: "spring",
-                stiffness: 110,
-                damping: 14,
-                delay: 0.25,
-              }}
-              className="relative z-10"
+              initial={{ opacity: 0, x: 40, rotate: 0, scale: 0.8 }}
+              animate={{ opacity: 1, x: -95, rotate: -10, scale: 0.92 }}
+              whileHover={{ scale: 1.02, rotate: -4, zIndex: 30 }}
+              transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.2 }}
+              className="hidden sm:block absolute w-60 h-76 rounded-[30px] bg-white p-3 shadow-2xl cursor-pointer"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=700&q=85"
+                alt="Curious cat"
+                className="w-full h-56 object-cover rounded-[22px]"
+              />
+              <div className="pt-2.5 px-1 flex items-center justify-between">
+                <span style={display} className="text-sm font-bold text-[#1F1924]">
+                  Wild Salmon Lover
+                </span>
+                <Heart className="w-4 h-4 fill-[#FF5C8D] text-[#FF5C8D]" />
+              </div>
+            </motion.div>
+
+            {/* Center Main Polaroid Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.82 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: "spring", stiffness: 115, damping: 14, delay: 0.35 }}
+              className="relative z-20 w-72 sm:w-80 rounded-[34px] bg-white p-3.5 shadow-[0_30px_70px_-15px_rgba(140,20,70,0.45)] cursor-pointer"
             >
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
-                className="w-72 sm:w-80 h-80 sm:h-96 rounded-[36px] overflow-hidden border-4 border-white shadow-2xl"
+                animate={{ y: [0, -7, 0] }}
+                transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
               >
-                <img
-                  src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=900&q=85"
-                  alt="Fluffy cat portrait"
-                  className="w-full h-full object-cover"
-                />
+                <div className="relative h-72 sm:h-80 rounded-[26px] overflow-hidden bg-[#FFE4EE]">
+                  <img
+                    src="/images/pet-hero.png"
+                    alt="Wayora mascot cat"
+                    className="w-full h-full object-cover object-center"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <Badge variant="lime">Chief Taste Officer</Badge>
+                  </div>
+                </div>
+                <div className="pt-3 px-2 flex items-center justify-between">
+                  <div>
+                    <p style={display} className="text-lg font-bold text-[#1F1924]">
+                      Mochi & Friends
+                    </p>
+                    <p className="text-xs text-[#7D6E85]">
+                      100% Clean-Bowl Approved
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 bg-[#FFF0F5] text-[#E8457A] px-3 py-1 rounded-full text-xs font-bold">
+                    <Star className="w-3.5 h-3.5 fill-[#FFB400] text-[#FFB400]" />
+                    <span>5.0</span>
+                  </div>
+                </div>
               </motion.div>
             </motion.div>
 
-            {/* Secondary overlapping floating pet image */}
+            {/* Right Tilted Polaroid Card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.75, x: 40, y: 40 }}
-              animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 115,
-                damping: 14,
-                delay: 0.45,
-              }}
-              className="absolute -bottom-6 right-2 sm:right-4 z-20"
+              initial={{ opacity: 0, x: -40, rotate: 0, scale: 0.8 }}
+              animate={{ opacity: 1, x: 105, rotate: 11, scale: 0.92 }}
+              whileHover={{ scale: 1.02, rotate: 4, zIndex: 30 }}
+              transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.5 }}
+              className="hidden sm:block absolute w-60 h-76 rounded-[30px] bg-white p-3 shadow-2xl cursor-pointer"
             >
-              <motion.div
-                animate={{ y: [0, 8, 0], rotate: [3, 5, 3] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="w-44 sm:w-52 h-44 sm:h-52 rounded-[28px] overflow-hidden border-4 border-white shadow-2xl"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=700&q=85"
-                  alt="Happy golden dog"
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            </motion.div>
-
-            {/* Floating Glass Stamp */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1, y: [0, -6, 0] }}
-              transition={{
-                opacity: { delay: 0.65, duration: 0.5 },
-                scale: { delay: 0.65, duration: 0.5 },
-                y: { repeat: Infinity, duration: 3.8, ease: "easeInOut" },
-              }}
-              className="absolute -top-5 left-2 sm:left-6 z-20 px-4 py-2.5 rounded-2xl bg-white/25 backdrop-blur-md border border-white/45 text-white shadow-lg"
-              style={display}
-            >
-              <div className="flex items-center gap-2 text-sm font-bold">
-                <Award className="w-4 h-4 text-[#FFF6C5]" />
-                <span>Est. 2021 • Fresh Kitchen</span>
+              <img
+                src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=700&q=85"
+                alt="Happy dog"
+                className="w-full h-56 object-cover rounded-[22px]"
+              />
+              <div className="pt-2.5 px-1 flex items-center justify-between">
+                <span style={display} className="text-sm font-bold text-[#1F1924]">
+                  Golden Tail Wags
+                </span>
+                <PawPrint className="w-4 h-4 fill-[#2BB673] text-[#2BB673]" />
               </div>
             </motion.div>
           </div>
         </div>
+
+        {/* Bottom Infinite Marquee Strip */}
+        <div className="relative z-20 bg-white/15 backdrop-blur-md border-t border-white/30 py-3.5 overflow-hidden">
+          <div className="flex whitespace-nowrap gap-12 text-xs sm:text-sm tracking-[0.18em] font-semibold text-white uppercase">
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="flex shrink-0 items-center gap-12 animate-marquee">
+                <span>100% HUMAN-GRADE WHOLE CUTS</span>
+                <span>SLOW-STEAMED AT 82°C</span>
+                <span>FORMULATED BY BOARD-CERTIFIED VETS</span>
+                <span>ZERO CORN, SOY, OR BY-PRODUCTS</span>
+                <span>99.2% PICKY-EATER APPROVAL</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* 2. Scroll Pop-Up Impact Metrics Section */}
-      <section className="py-16 px-5 sm:px-8 md:px-14 max-w-[1360px] mx-auto -mt-10 relative z-30">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {/* 2. Colorful Impact Metrics Bento Strip */}
+      <section className="py-20 px-5 sm:px-8 md:px-14 max-w-[1360px] mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((st, idx) => (
             <motion.div
               key={st.label}
-              initial={{ opacity: 0, scale: 0.86, y: 35 }}
+              initial={{ opacity: 0, scale: 0.84, y: 40 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
@@ -351,16 +453,19 @@ export default function AboutPage() {
                 delay: idx * 0.1,
               }}
             >
-              <Card className="p-6 text-center hover:-translate-y-1.5">
+              <Card className="relative overflow-hidden p-7 hover:-translate-y-2 group">
+                <div
+                  className={`w-12 h-1.5 rounded-full bg-gradient-to-r ${st.accent} mb-5`}
+                />
                 <div
                   style={display}
-                  className="text-4xl sm:text-5xl font-bold text-[#E8457A] mb-1.5"
+                  className="text-5xl sm:text-6xl font-bold text-[#1F1924] tracking-tight mb-2 group-hover:text-[#E8457A] transition-colors"
                 >
                   <CountUp to={st.value} suffix={st.suffix} />
                 </div>
                 <div
                   style={display}
-                  className="text-base font-bold text-[#1F1924]"
+                  className="text-lg font-bold text-[#1F1924]"
                 >
                   {st.label}
                 </div>
@@ -371,103 +476,17 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Our Origin Story & Interactive Timeline */}
-      <section className="py-20 px-5 sm:px-8 md:px-14 max-w-[1360px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Story Image & Quote */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85, y: 40 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ type: "spring", stiffness: 105, damping: 15 }}
-            className="lg:col-span-5"
-          >
-            <div className="relative rounded-[34px] overflow-hidden border-4 border-white shadow-2xl aspect-[4/5]">
-              <img
-                src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=900&q=85"
-                alt="Mochi the cat"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                <Badge variant="lime">Where It All Began</Badge>
-                <p style={display} className="text-2xl font-bold leading-snug">
-                  “If we wouldn’t eat the ingredients ourselves, we refused to
-                  put them in Mochi’s bowl.”
-                </p>
-                <p className="text-xs text-white/80">
-                  — Wayora Founding Kitchen Team
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Timeline Milestones */}
-          <div className="lg:col-span-7 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <Badge variant="secondary" className="mb-3">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>From One Bowl to Thousands</span>
-              </Badge>
-              <h2
-                style={display}
-                className="text-4xl sm:text-5xl font-bold text-[#1F1924] leading-[1.06]"
-              >
-                Started With a Picky Cat, Built on{" "}
-                <span className="text-[#FF5C8D]">Honest Science</span>
-              </h2>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
-              {milestones.map((m, idx) => (
-                <motion.div
-                  key={m.year}
-                  initial={{ opacity: 0, scale: 0.88, y: 30 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 115,
-                    damping: 15,
-                    delay: idx * 0.1,
-                  }}
-                >
-                  <Card className="p-6 h-full hover:border-[#FF8FB1]">
-                    <Badge variant="pink" className="mb-3" style={display}>
-                      {m.year}
-                    </Badge>
-                    <h3
-                      style={display}
-                      className="text-xl font-bold text-[#1F1924] mb-2"
-                    >
-                      {m.title}
-                    </h3>
-                    <p className="text-sm text-[#6E6275] leading-relaxed">
-                      {m.description}
-                    </p>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Inside Our Kitchen — 3-Step Pop-Up Cards (#kitchen) */}
+      {/* 3. Interactive Kitchen Process Switcher (#kitchen) */}
       <section
         id="kitchen"
-        className="py-24 bg-gradient-to-b from-[#FFF0F5] to-[#FFF9FB] border-y border-[#F6DFEA]"
+        className="py-24 bg-gradient-to-b from-[#FFF0F5] via-[#FFF6F9] to-[#FFF9FB] border-y border-[#F6DFEA]"
       >
         <div className="max-w-[1360px] mx-auto px-5 sm:px-8 md:px-14">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-16"
+            className="text-center max-w-2xl mx-auto mb-14"
           >
             <Badge variant="lime" className="mb-3">
               <ShieldCheck className="w-3.5 h-3.5" />
@@ -477,63 +496,123 @@ export default function AboutPage() {
               style={display}
               className="text-4xl sm:text-5xl font-bold text-[#1F1924] mb-3"
             >
-              How We Craft Every Pouch
+              Inside the Wayora Kitchen
             </h2>
             <p className="text-sm sm:text-base text-[#6E6275]">
-              No rendering plants, no powdered meat meals, and no artificial
-              dyes. Just three mindful steps from farm to bowl.
+              Click through each step of our culinary process to see how we lock
+              in fresh flavor and clinical-grade nutrition.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-            {kitchenSteps.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.step}
-                  initial={{ opacity: 0, scale: 0.84, y: 45 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 115,
-                    damping: 15,
-                    delay: idx * 0.14,
-                  }}
-                >
-                  <Card className="group h-full overflow-hidden hover:-translate-y-2">
-                    <div className="relative h-56 overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <Badge variant="lime">{item.badge}</Badge>
-                      </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Left Interactive Step Selector Cards */}
+            <div className="lg:col-span-6 space-y-4">
+              {kitchenSteps.map((item, idx) => {
+                const Icon = item.icon;
+                const isSelected = activeStep === idx;
+                return (
+                  <motion.div
+                    key={item.step}
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1, duration: 0.5 }}
+                    onClick={() => setActiveStep(idx)}
+                    className={`cursor-pointer rounded-[28px] p-6 border-2 transition-all duration-300 ${
+                      isSelected
+                        ? "bg-white border-[#FF6F9C] shadow-[0_22px_50px_-12px_rgba(232,69,122,0.2)] scale-[1.01]"
+                        : "bg-white/70 border-[#F2E2E9] hover:bg-white hover:border-[#FFB3C8]"
+                    }`}
+                  >
+                    <div className="flex items-start gap-4">
                       <div
                         style={display}
-                        className="absolute bottom-3 right-4 text-4xl font-bold text-white drop-shadow-md"
+                        className={`w-12 h-12 rounded-2xl flex items-center justify-center text-lg font-bold shrink-0 transition-colors ${
+                          isSelected
+                            ? "bg-[#FF6F9C] text-white"
+                            : "bg-[#FFF0F5] text-[#E8457A]"
+                        }`}
                       >
                         {item.step}
                       </div>
-                    </div>
-                    <CardHeader>
-                      <div className="w-11 h-11 rounded-2xl bg-[#FFF0F5] text-[#E8457A] flex items-center justify-center mb-2">
-                        <Icon className="w-5 h-5" />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold uppercase tracking-wider text-[#E8457A]">
+                            {item.subtitle}
+                          </span>
+                          <Icon className="w-4 h-4 text-[#E8457A]" />
+                        </div>
+                        <h3
+                          style={display}
+                          className="text-xl font-bold text-[#1F1924] mt-0.5 mb-2"
+                        >
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-[#6E6275] leading-relaxed">
+                          {item.description}
+                        </p>
                       </div>
-                      <CardTitle>{item.title}</CardTitle>
-                      <CardDescription>{item.description}</CardDescription>
-                    </CardHeader>
-                  </Card>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Right Animated Large Preview Card */}
+            <div className="lg:col-span-6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStep}
+                  initial={{ opacity: 0, scale: 0.92, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -15 }}
+                  transition={{ type: "spring", stiffness: 120, damping: 16 }}
+                  className="rounded-[36px] bg-white p-5 sm:p-6 shadow-2xl border border-[#F3E0E8]"
+                >
+                  <div className="relative h-72 sm:h-80 rounded-[28px] overflow-hidden mb-6">
+                    <img
+                      src={kitchenSteps[activeStep].image}
+                      alt={kitchenSteps[activeStep].title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                    <div className="absolute top-4 left-4">
+                      <Badge variant="lime">
+                        {kitchenSteps[activeStep].badge}
+                      </Badge>
+                    </div>
+                    <div className="absolute bottom-4 left-5 right-5 text-white">
+                      <span
+                        style={display}
+                        className="text-sm uppercase tracking-widest text-[#FFF6C5]"
+                      >
+                        Step {kitchenSteps[activeStep].step}
+                      </span>
+                      <h4 style={display} className="text-2xl font-bold">
+                        {kitchenSteps[activeStep].title}
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {kitchenSteps[activeStep].highlights.map((h) => (
+                      <div
+                        key={h}
+                        className="flex items-center gap-2 rounded-2xl bg-[#FFF5F8] px-3.5 py-3 text-xs font-semibold text-[#1F1924]"
+                      >
+                        <CheckCircle2 className="w-4 h-4 text-[#2BB673] shrink-0" />
+                        <span>{h}</span>
+                      </div>
+                    ))}
+                  </div>
                 </motion.div>
-              );
-            })}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 5. Meet Our Veterinary & Culinary Team */}
+      {/* 4. Visual Timeline with Photo Cards */}
       <section className="py-24 px-5 sm:px-8 md:px-14 max-w-[1360px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -541,7 +620,139 @@ export default function AboutPage() {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
+          <Badge variant="secondary" className="mb-3">
+            <Award className="w-3.5 h-3.5" />
+            <span>Our Journey (2021 – 2026)</span>
+          </Badge>
+          <h2
+            style={display}
+            className="text-4xl sm:text-5xl font-bold text-[#1F1924] mb-3"
+          >
+            From One Rescue Cat to{" "}
+            <span className="text-[#FF5C8D]">1M+ Bowls</span>
+          </h2>
+          <p className="text-sm sm:text-base text-[#6E6275]">
+            Every milestone was inspired by real pet parents asking for cleaner,
+            fresher, more honest nutrition.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {milestones.map((m, idx) => (
+            <motion.div
+              key={m.year}
+              initial={{ opacity: 0, scale: 0.85, y: 45 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{
+                type: "spring",
+                stiffness: 115,
+                damping: 15,
+                delay: idx * 0.12,
+              }}
+            >
+              <Card className="group h-full overflow-hidden flex flex-col justify-between hover:-translate-y-2">
+                <div>
+                  <div className="relative h-44 overflow-hidden">
+                    <img
+                      src={m.image}
+                      alt={m.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <Badge variant="pink" style={display}>
+                        {m.year}
+                      </Badge>
+                    </div>
+                  </div>
+                  <CardHeader>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#E8457A]">
+                      {m.tag}
+                    </span>
+                    <CardTitle>{m.title}</CardTitle>
+                    <CardDescription className="pt-1">
+                      {m.description}
+                    </CardDescription>
+                  </CardHeader>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. Wayora Fresh vs. Ordinary Kibble Comparison Section */}
+      <section className="py-20 px-5 sm:px-8 md:px-14 max-w-[1180px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto mb-12"
+        >
           <Badge variant="pink" className="mb-3">
+            The Fresh Difference
+          </Badge>
+          <h2
+            style={display}
+            className="text-4xl sm:text-5xl font-bold text-[#1F1924]"
+          >
+            Why Fresh Beats Dry Kibble
+          </h2>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92, y: 35 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", stiffness: 105, damping: 16 }}
+          className="rounded-[34px] bg-white border border-[#F2E0E8] shadow-xl overflow-hidden"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-12 bg-[#FFF3F7] border-b border-[#F2E0E8] p-5 sm:px-8 font-bold text-sm" style={display}>
+            <div className="md:col-span-4 text-[#6E5C6B]">Nutritional Standard</div>
+            <div className="md:col-span-4 text-[#E8457A] flex items-center gap-1.5 mt-2 md:mt-0">
+              <PawPrint className="w-4 h-4 fill-current" />
+              <span>Wayora Fresh Steamed</span>
+            </div>
+            <div className="md:col-span-4 text-[#8C7F91] mt-2 md:mt-0">
+              Ordinary Dry Kibble
+            </div>
+          </div>
+
+          <div className="divide-y divide-[#F6EBF0]">
+            {comparisonRows.map((row) => (
+              <div
+                key={row.feature}
+                className="grid grid-cols-1 md:grid-cols-12 p-5 sm:px-8 gap-3 items-center text-sm"
+              >
+                <div
+                  style={display}
+                  className="md:col-span-4 font-bold text-[#1F1924]"
+                >
+                  {row.feature}
+                </div>
+                <div className="md:col-span-4 flex items-center gap-2 font-semibold text-[#1F1924] bg-[#F6FCE2] px-3.5 py-2 rounded-2xl">
+                  <CheckCircle2 className="w-4 h-4 text-[#2BB673] shrink-0" />
+                  <span>{row.wayora}</span>
+                </div>
+                <div className="md:col-span-4 flex items-center gap-2 text-[#7D7082] px-2">
+                  <XCircle className="w-4 h-4 text-[#D9778F] shrink-0" />
+                  <span>{row.kibble}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* 6. Meet Our Veterinary & Culinary Team */}
+      <section className="py-24 px-5 sm:px-8 md:px-14 max-w-[1360px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto mb-16"
+        >
+          <Badge variant="lime" className="mb-3">
             The Minds Behind Wayora
           </Badge>
           <h2
@@ -570,9 +781,9 @@ export default function AboutPage() {
                 delay: idx * 0.12,
               }}
             >
-              <Card className="group overflow-hidden h-full flex flex-col justify-between hover:-translate-y-1.5">
+              <Card className="group overflow-hidden h-full flex flex-col justify-between hover:-translate-y-2">
                 <div>
-                  <div className="relative h-64 overflow-hidden bg-[#FFE8F0]">
+                  <div className="relative h-68 overflow-hidden bg-[#FFE8F0]">
                     <img
                       src={member.image}
                       alt={member.name}
@@ -604,7 +815,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. Bottom CTA Banner + Footer */}
+      {/* 7. Bottom CTA Banner + Footer */}
       <section className="pb-20 px-5 sm:px-8 md:px-14 max-w-[1360px] mx-auto">
         <motion.div
           initial={{ opacity: 0, scale: 0.92, y: 35 }}
@@ -673,4 +884,3 @@ export default function AboutPage() {
     </main>
   );
 }
-

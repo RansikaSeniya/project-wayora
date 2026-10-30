@@ -636,7 +636,7 @@ export default function Home() {
                   <ArrowRight className="w-4 h-4" />
                 </Button>
                 <span className="text-xs sm:text-sm text-white/90 font-medium">
-                  ✦ 100% Clean-Bowl Guarantee
+                  100% Clean-Bowl Guarantee
                 </span>
               </div>
             </div>
