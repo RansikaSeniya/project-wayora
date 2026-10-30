@@ -18,7 +18,6 @@ import {
   Award,
   CheckCircle2,
   Flame,
-  Heart,
   Leaf,
   Microscope,
   PawPrint,
@@ -221,8 +220,42 @@ const team = [
   },
 ];
 
+const heroSlides = [
+  {
+    image: "/images/pet-hero.png",
+    badge: "Chief Taste Officer",
+    title: "Mochi & Friends",
+    subtitle: "100% Clean-Bowl Approved",
+    rating: "5.0",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=900&q=85",
+    badge: "Omega-3 Rich",
+    title: "Wild Salmon Lover",
+    subtitle: "Silky Coat & Gentle Digestion",
+    rating: "4.9",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=900&q=85",
+    badge: "Pasture-Raised",
+    title: "Golden Tail Wags",
+    subtitle: "All-Day Playful Energy",
+    rating: "5.0",
+  },
+];
+
 export default function AboutPage() {
   const [activeStep, setActiveStep] = useState(0);
+  const [heroSlide, setHeroSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <main className="min-h-screen bg-[#FFF9FB] text-[#1F1924] overflow-x-hidden">
@@ -336,86 +369,78 @@ export default function AboutPage() {
             </motion.div>
           </div>
 
-          {/* Right 3-Card Interactive Polaroid Fan Collage */}
-          <div className="lg:col-span-6 relative h-[430px] sm:h-[490px] flex items-center justify-center">
-            {/* Left Tilted Polaroid Card */}
+          {/* Right Auto-Shading / Crossfading 3-Image Showcase */}
+          <div className="lg:col-span-6 relative flex items-center justify-center">
             <motion.div
-              initial={{ opacity: 0, x: 40, rotate: 0, scale: 0.8 }}
-              animate={{ opacity: 1, x: -95, rotate: -10, scale: 0.92 }}
-              whileHover={{ scale: 1.02, rotate: -4, zIndex: 30 }}
-              transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.2 }}
-              className="hidden sm:block absolute w-60 h-76 rounded-[30px] bg-white p-3 shadow-2xl cursor-pointer"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=700&q=85"
-                alt="Curious cat"
-                className="w-full h-56 object-cover rounded-[22px]"
-              />
-              <div className="pt-2.5 px-1 flex items-center justify-between">
-                <span style={display} className="text-sm font-bold text-[#1F1924]">
-                  Wild Salmon Lover
-                </span>
-                <Heart className="w-4 h-4 fill-[#FF5C8D] text-[#FF5C8D]" />
-              </div>
-            </motion.div>
-
-            {/* Center Main Polaroid Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 40, scale: 0.82 }}
+              initial={{ opacity: 0, y: 30, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              whileHover={{ scale: 1.04 }}
-              transition={{ type: "spring", stiffness: 115, damping: 14, delay: 0.35 }}
-              className="relative z-20 w-72 sm:w-80 rounded-[34px] bg-white p-3.5 shadow-[0_30px_70px_-15px_rgba(140,20,70,0.45)] cursor-pointer"
+              transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.25 }}
+              className="relative w-full max-w-[420px] rounded-[36px] bg-white/95 backdrop-blur-md p-4 shadow-[0_30px_70px_-15px_rgba(140,20,70,0.45)] border border-white"
             >
-              <motion.div
-                animate={{ y: [0, -7, 0] }}
-                transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
-              >
-                <div className="relative h-72 sm:h-80 rounded-[26px] overflow-hidden bg-[#FFE4EE]">
-                  <img
-                    src="/images/pet-hero.png"
-                    alt="Wayora mascot cat"
-                    className="w-full h-full object-cover object-center"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <Badge variant="lime">Chief Taste Officer</Badge>
-                  </div>
+              {/* Crossfading / Shading Image Container */}
+              <div className="relative h-80 sm:h-96 w-full rounded-[28px] overflow-hidden bg-[#FFE4EE]">
+                <AnimatePresence mode="sync">
+                  <motion.div
+                    key={heroSlide}
+                    initial={{ opacity: 0, scale: 1.08, filter: "blur(8px)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, scale: 0.96, filter: "blur(6px)" }}
+                    transition={{ duration: 0.95, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                  >
+                    <img
+                      src={heroSlides[heroSlide].image}
+                      alt={heroSlides[heroSlide].title}
+                      className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                    <div className="absolute top-4 left-4">
+                      <Badge variant="lime">{heroSlides[heroSlide].badge}</Badge>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Slide Indicator Dots */}
+                <div className="absolute bottom-4 inset-x-0 z-20 flex items-center justify-center gap-2">
+                  {heroSlides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      aria-label={`Slide ${idx + 1}`}
+                      onClick={() => setHeroSlide(idx)}
+                      className={`h-2 rounded-full transition-all duration-500 cursor-pointer ${
+                        heroSlide === idx
+                          ? "w-7 bg-[#D9F27A]"
+                          : "w-2 bg-white/60 hover:bg-white"
+                      }`}
+                    />
+                  ))}
                 </div>
-                <div className="pt-3 px-2 flex items-center justify-between">
-                  <div>
-                    <p style={display} className="text-lg font-bold text-[#1F1924]">
-                      Mochi & Friends
+              </div>
+
+              {/* Dynamic Caption Footer */}
+              <div className="pt-4 px-2 flex items-center justify-between">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={heroSlide}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.35 }}
+                  >
+                    <p style={display} className="text-xl font-bold text-[#1F1924]">
+                      {heroSlides[heroSlide].title}
                     </p>
                     <p className="text-xs text-[#7D6E85]">
-                      100% Clean-Bowl Approved
+                      {heroSlides[heroSlide].subtitle}
                     </p>
-                  </div>
-                  <div className="flex items-center gap-1 bg-[#FFF0F5] text-[#E8457A] px-3 py-1 rounded-full text-xs font-bold">
-                    <Star className="w-3.5 h-3.5 fill-[#FFB400] text-[#FFB400]" />
-                    <span>5.0</span>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
+                  </motion.div>
+                </AnimatePresence>
 
-            {/* Right Tilted Polaroid Card */}
-            <motion.div
-              initial={{ opacity: 0, x: -40, rotate: 0, scale: 0.8 }}
-              animate={{ opacity: 1, x: 105, rotate: 11, scale: 0.92 }}
-              whileHover={{ scale: 1.02, rotate: 4, zIndex: 30 }}
-              transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.5 }}
-              className="hidden sm:block absolute w-60 h-76 rounded-[30px] bg-white p-3 shadow-2xl cursor-pointer"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=700&q=85"
-                alt="Happy dog"
-                className="w-full h-56 object-cover rounded-[22px]"
-              />
-              <div className="pt-2.5 px-1 flex items-center justify-between">
-                <span style={display} className="text-sm font-bold text-[#1F1924]">
-                  Golden Tail Wags
-                </span>
-                <PawPrint className="w-4 h-4 fill-[#2BB673] text-[#2BB673]" />
+                <div className="flex items-center gap-1 bg-[#FFF0F5] text-[#E8457A] px-3.5 py-1.5 rounded-full text-xs font-bold">
+                  <Star className="w-3.5 h-3.5 fill-[#FFB400] text-[#FFB400]" />
+                  <span>{heroSlides[heroSlide].rating}</span>
+                </div>
               </div>
             </motion.div>
           </div>
