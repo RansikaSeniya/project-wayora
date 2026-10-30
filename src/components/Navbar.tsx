@@ -2,18 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { PawPrint, X, Menu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { label: "Shop", href: "#shop" },
-  { label: "Nutrition", href: "#nutrition" },
-  { label: "Reviews", href: "#reviews" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Recipes", href: "/recipes" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("Shop");
+  const pathname = usePathname();
 
   return (
     <motion.header
@@ -22,8 +24,8 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="relative z-30 w-full px-4 sm:px-6 pt-4 sm:pt-6"
     >
-      {/* Clean, minimal, professional compact navbar */}
-      <nav className="mx-auto w-full max-w-[680px] flex items-center justify-between gap-4 px-5 py-2.5 rounded-full bg-white/20 backdrop-blur-md border border-white/35 shadow-lg shadow-[#d43f73]/10">
+      {/* Clean, minimal, professional compact navbar with page routes */}
+      <nav className="mx-auto w-full max-w-[740px] flex items-center justify-between gap-4 px-5 py-2.5 rounded-full bg-white/20 backdrop-blur-md border border-white/35 shadow-lg shadow-[#d43f73]/10">
         {/* Brand Logo */}
         <Link
           href="/"
@@ -42,15 +44,15 @@ export default function Navbar() {
           </motion.span>
         </Link>
 
-        {/* Minimal Center Navigation Links */}
+        {/* Page Navigation Links */}
         <div className="hidden md:flex items-center gap-1.5">
           {navLinks.map((l) => {
-            const isActive = active === l.label;
+            const isActive =
+              l.href === "/" ? pathname === "/" : pathname?.startsWith(l.href);
             return (
               <Link
                 key={l.label}
                 href={l.href}
-                onClick={() => setActive(l.label)}
                 className={`px-4 py-1.5 rounded-full text-xs sm:text-[13px] font-medium transition-all duration-300 ${
                   isActive
                     ? "bg-white text-[#E8457A] shadow-sm"
@@ -66,7 +68,7 @@ export default function Navbar() {
         {/* Clean CTA Pill */}
         <div className="flex items-center gap-2">
           <Link
-            href="#shop"
+            href="/#shop"
             style={{ fontFamily: "var(--font-display)" }}
             className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-1.5 rounded-full bg-[#D9F27A] text-[#243000] text-xs sm:text-[13px] font-semibold hover:scale-105 active:scale-95 transition shadow-sm"
           >
@@ -92,21 +94,26 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden mx-auto max-w-[680px] mt-2 p-4 rounded-3xl bg-white/95 backdrop-blur-xl shadow-xl flex flex-col gap-1"
+            className="md:hidden mx-auto max-w-[740px] mt-2 p-4 rounded-3xl bg-white/95 backdrop-blur-xl shadow-xl flex flex-col gap-1"
           >
-            {navLinks.map((l) => (
-              <Link
-                key={l.label}
-                href={l.href}
-                onClick={() => {
-                  setActive(l.label);
-                  setOpen(false);
-                }}
-                className="py-2 px-4 text-sm text-[#E8457A] font-medium rounded-xl hover:bg-pink-50"
-              >
-                {l.label}
-              </Link>
-            ))}
+            {navLinks.map((l) => {
+              const isActive =
+                l.href === "/" ? pathname === "/" : pathname?.startsWith(l.href);
+              return (
+                <Link
+                  key={l.label}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className={`py-2 px-4 text-sm font-medium rounded-xl transition ${
+                    isActive
+                      ? "bg-[#FFF0F5] text-[#E8457A] font-semibold"
+                      : "text-[#1F1924] hover:bg-pink-50"
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

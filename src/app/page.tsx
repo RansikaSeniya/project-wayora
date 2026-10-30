@@ -667,14 +667,17 @@ export default function Home() {
             <PawPrint className="w-5 h-5 fill-current" />
           </div>
           <div className="flex flex-wrap items-center gap-6 text-xs sm:text-sm text-[#6E6275] font-medium">
-            <a href="#shop" className="hover:text-[#E8457A] transition">
-              Shop Recipes
+            <a href="/" className="text-[#E8457A] font-semibold">
+              Home
             </a>
-            <a href="#nutrition" className="hover:text-[#E8457A] transition">
-              Our Nutrition
+            <a href="/about" className="hover:text-[#E8457A] transition">
+              About Us
             </a>
-            <a href="#reviews" className="hover:text-[#E8457A] transition">
-              Reviews & FAQ
+            <a href="/recipes" className="hover:text-[#E8457A] transition">
+              Recipes
+            </a>
+            <a href="/contact" className="hover:text-[#E8457A] transition">
+              Contact
             </a>
           </div>
           <p className="text-xs text-[#96889E]">
