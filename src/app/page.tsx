@@ -671,7 +671,7 @@ export default function Home() {
               Home
             </a>
             <a href="/about" className="hover:text-[#E8457A] transition">
-              About Us
+              Our Story
             </a>
             <a href="/recipes" className="hover:text-[#E8457A] transition">
               Recipes

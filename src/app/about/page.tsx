@@ -23,7 +23,6 @@ import {
   PawPrint,
   ShieldCheck,
   Sparkles,
-  Star,
   XCircle,
 } from "lucide-react";
 
@@ -58,6 +57,49 @@ function CountUp({
     <span ref={ref}>
       {prefix}0{suffix}
     </span>
+  );
+}
+
+function CatLogo({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M12 5c-3.87 0-7 3.13-7 7 0 2.3 1.12 4.34 2.85 5.6.6.44 1.37.74 2.15.85.66.09 1.34.09 2 0 .78-.11 1.55-.41 2.15-.85 1.73-1.26 2.85-3.3 2.85-5.6 0-3.87-3.13-7-7-7z" />
+      <path d="M6 7.5L4.5 3.5l4 1.5" />
+      <path d="M18 7.5L19.5 3.5l-4 1.5" />
+      <circle cx="9.5" cy="12" r="1.1" fill="currentColor" />
+      <circle cx="14.5" cy="12" r="1.1" fill="currentColor" />
+      <path d="M11 14.5a1.2 1.2 0 0 0 2 0" />
+    </svg>
+  );
+}
+
+function DogLogo({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M9 5c-.5-1.5-2-2.5-3.5-2C3.5 3.5 2.5 8 2.5 10c0 1 .5 2 2 1.5s3.5-4 4.5-6.5z" />
+      <path d="M15 5c.5-1.5 2-2.5 3.5-2 2 0.5 3 5 3 7 0 1-.5 2-2 1.5s-3.5-4-4.5-6.5z" />
+      <path d="M6.5 10c0 4 2.5 7.5 5.5 7.5s5.5-3.5 5.5-7.5c0-3-2.5-5.5-5.5-5.5S6.5 7 6.5 10z" />
+      <circle cx="9.5" cy="10" r="1.1" fill="currentColor" />
+      <circle cx="14.5" cy="10" r="1.1" fill="currentColor" />
+      <ellipse cx="12" cy="13" rx="1.5" ry="1" fill="currentColor" />
+      <path d="M12 14v1.5m-1.5 0a1.5 1.5 0 0 0 3 0" />
+    </svg>
   );
 }
 
@@ -226,7 +268,7 @@ const heroSlides = [
     badge: "Chief Taste Officer",
     title: "Mochi & Friends",
     subtitle: "100% Clean-Bowl Approved",
-    rating: "5.0",
+    petType: "cat" as const,
   },
   {
     image:
@@ -234,7 +276,7 @@ const heroSlides = [
     badge: "Omega-3 Rich",
     title: "Wild Salmon Lover",
     subtitle: "Silky Coat & Gentle Digestion",
-    rating: "4.9",
+    petType: "cat" as const,
   },
   {
     image:
@@ -242,7 +284,7 @@ const heroSlides = [
     badge: "Pasture-Raised",
     title: "Golden Tail Wags",
     subtitle: "All-Day Playful Energy",
-    rating: "5.0",
+    petType: "dog" as const,
   },
 ];
 
@@ -259,7 +301,7 @@ export default function AboutPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#FFD4E3] via-[#FFDFEB] to-[#FFD2E2] text-[#2A1621] overflow-x-hidden">
-      {/* 1. Immersive Pink/Coral Hero with 3-Card Polaroid Fan & Watermark */}
+      {/* 1. Immersive Pink/Coral Hero */}
       <section
         className="relative w-full min-h-[90vh] flex flex-col justify-between overflow-hidden"
         style={{
@@ -267,7 +309,7 @@ export default function AboutPage() {
             "radial-gradient(70% 80% at 50% 45%, #FFB3C8 0%, #FF8FB1 45%, #FF6F9C 100%)",
         }}
       >
-        {/* Giant Background Watermark Text */}
+        {/* Giant Background Watermark Text (Reverted to subtle style) */}
         <div
           style={display}
           className="absolute top-[18%] inset-x-0 text-center text-[19vw] font-bold text-white/10 leading-none select-none pointer-events-none whitespace-nowrap"
@@ -281,13 +323,12 @@ export default function AboutPage() {
           {/* Left Hero Copy */}
           <div className="lg:col-span-6 space-y-6">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 12 }}
+              initial={{ opacity: 0, scale: 0.92, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/25 backdrop-blur-md border border-white/40 text-white text-xs sm:text-sm font-semibold"
+              transition={{ duration: 0.55, ease: "easeOut" }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/25 backdrop-blur-md border border-white/40 text-white text-xs sm:text-sm font-semibold shadow-sm"
               style={display}
             >
-              <Sparkles className="w-4 h-4 text-[#FFF6C5]" />
               <span>Born From Love • Backed By Veterinary Science</span>
             </motion.div>
 
@@ -394,8 +435,13 @@ export default function AboutPage() {
                       className="w-full h-full object-cover object-center"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-                    <div className="absolute top-4 left-4">
-                      <Badge variant="lime">{heroSlides[heroSlide].badge}</Badge>
+                    <div className="absolute top-4 left-4 z-20 inline-flex items-center px-4 py-1.5 rounded-full bg-[#1F1924]/75 backdrop-blur-md border border-white/35 text-white shadow-lg">
+                      <span
+                        style={display}
+                        className="text-[11px] font-bold tracking-wider uppercase text-white/95"
+                      >
+                        {heroSlides[heroSlide].badge}
+                      </span>
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -418,8 +464,8 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* Dynamic Caption Footer */}
-              <div className="pt-4 px-2 flex items-center justify-between">
+              {/* Dynamic Caption Footer with Cat/Dog Logo */}
+              <div className="pt-4 px-2">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={heroSlide}
@@ -427,20 +473,25 @@ export default function AboutPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.35 }}
+                    className="flex items-center gap-3.5"
                   >
-                    <p style={display} className="text-xl font-bold text-[#1F1924]">
-                      {heroSlides[heroSlide].title}
-                    </p>
-                    <p className="text-xs text-[#7D6E85]">
-                      {heroSlides[heroSlide].subtitle}
-                    </p>
+                    <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#FFF0F5] to-[#FFE0EC] text-[#E8457A] flex items-center justify-center shrink-0 border border-[#F9BDD3] shadow-sm">
+                      {heroSlides[heroSlide].petType === "dog" ? (
+                        <DogLogo className="w-5 h-5" />
+                      ) : (
+                        <CatLogo className="w-5 h-5" />
+                      )}
+                    </div>
+                    <div>
+                      <p style={display} className="text-xl font-bold text-[#1F1924]">
+                        {heroSlides[heroSlide].title}
+                      </p>
+                      <p className="text-xs text-[#7D6E85]">
+                        {heroSlides[heroSlide].subtitle}
+                      </p>
+                    </div>
                   </motion.div>
                 </AnimatePresence>
-
-                <div className="flex items-center gap-1 bg-[#FFF0F5] text-[#E8457A] px-3.5 py-1.5 rounded-full text-xs font-bold">
-                  <Star className="w-3.5 h-3.5 fill-[#FFB400] text-[#FFB400]" />
-                  <span>{heroSlides[heroSlide].rating}</span>
-                </div>
               </div>
             </motion.div>
           </div>
@@ -892,7 +943,7 @@ export default function AboutPage() {
               Home
             </Link>
             <Link href="/about" className="text-[#E8457A] font-semibold">
-              About Us
+              Our Story
             </Link>
             <Link href="/recipes" className="hover:text-[#E8457A] transition">
               Recipes
