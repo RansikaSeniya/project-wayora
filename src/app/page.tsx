@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Hero from "@/components/Hero";
+import { useBowl } from "@/components/BowlContext";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +19,9 @@ import {
   ArrowRight,
   Heart,
   Leaf,
+  Minus,
   PawPrint,
+  Plus,
   ShieldCheck,
   Sparkles,
   Star,
@@ -199,6 +202,7 @@ const faqs = [
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const categories = ["All", "Cats", "Dogs", "Kittens"];
+  const { addToBowl, updateQuantity, getItemQuantity, openBowl } = useBowl();
 
   const filteredProducts =
     selectedCategory === "All"
@@ -305,7 +309,7 @@ export default function Home() {
                   </CardHeader>
                 </div>
 
-                <CardFooter className="pt-4 border-t border-[#F7ECF0]">
+                <CardFooter className="pt-4 border-t border-[#F7C8DA]">
                   <div>
                     <span className="text-[11px] text-[#8E7F94] block">
                       Pack of 7 Pouches
@@ -317,10 +321,53 @@ export default function Home() {
                       {item.price}
                     </span>
                   </div>
-                  <Button variant="lime" size="sm" style={display}>
-                    <span>Add to Bowl</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Button>
+                  {getItemQuantity(item.id) > 0 ? (
+                    <div className="inline-flex items-center gap-2 rounded-full bg-[#1F1924] text-white px-2.5 py-1.5 shadow-md">
+                      <button
+                        type="button"
+                        aria-label="Decrease quantity"
+                        onClick={() => updateQuantity(item.id, -1)}
+                        className="w-6 h-6 rounded-full bg-white/15 hover:bg-[#FF6F9C] flex items-center justify-center transition cursor-pointer"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={openBowl}
+                        style={display}
+                        className="text-xs font-bold px-1.5 text-[#D9F27A] cursor-pointer"
+                      >
+                        {getItemQuantity(item.id)} in Bowl
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Increase quantity"
+                        onClick={() => updateQuantity(item.id, 1)}
+                        className="w-6 h-6 rounded-full bg-white/15 hover:bg-[#FF6F9C] flex items-center justify-center transition cursor-pointer"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  ) : (
+                    <Button
+                      variant="lime"
+                      size="sm"
+                      style={display}
+                      onClick={() =>
+                        addToBowl({
+                          id: item.id,
+                          name: item.name,
+                          price: parseFloat(item.price.replace("$", "")),
+                          priceFormatted: item.price,
+                          image: item.image,
+                          category: item.category,
+                        })
+                      }
+                    >
+                      <span>Add to Bowl</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             </motion.div>
@@ -631,7 +678,12 @@ export default function Home() {
                 weight, and favorite proteins. Free shipping on your first trial.
               </p>
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Button variant="lime" size="lg" style={display}>
+                <Button
+                  variant="lime"
+                  size="lg"
+                  style={display}
+                  onClick={openBowl}
+                >
                   <span>Build Your Tasting Box</span>
                   <ArrowRight className="w-4 h-4" />
                 </Button>

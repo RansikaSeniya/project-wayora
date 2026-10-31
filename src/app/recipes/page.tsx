@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import { useBowl } from "@/components/BowlContext";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +18,9 @@ import {
   ArrowRight,
   CheckCircle2,
   Leaf,
+  Minus,
   PawPrint,
+  Plus,
   Scale,
   Star,
 } from "lucide-react";
@@ -257,6 +260,7 @@ export default function RecipesPage() {
   const [heroSlide, setHeroSlide] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [activeIngredient, setActiveIngredient] = useState(0);
+  const { addToBowl, updateQuantity, getItemQuantity, openBowl } = useBowl();
 
   /* Portion Calculator State */
   const [calcPetType, setCalcPetType] = useState<"cat" | "dog">("cat");
@@ -653,10 +657,53 @@ export default function RecipesPage() {
                         {item.price}
                       </span>
                     </div>
-                    <Button variant="lime" size="sm" style={display}>
-                      <span>Add to Bowl</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Button>
+                    {getItemQuantity(item.id) > 0 ? (
+                      <div className="inline-flex items-center gap-2 rounded-full bg-[#1F1924] text-white px-2.5 py-1.5 shadow-md">
+                        <button
+                          type="button"
+                          aria-label="Decrease quantity"
+                          onClick={() => updateQuantity(item.id, -1)}
+                          className="w-6 h-6 rounded-full bg-white/15 hover:bg-[#FF6F9C] flex items-center justify-center transition cursor-pointer"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={openBowl}
+                          style={display}
+                          className="text-xs font-bold px-1.5 text-[#D9F27A] cursor-pointer"
+                        >
+                          {getItemQuantity(item.id)} in Bowl
+                        </button>
+                        <button
+                          type="button"
+                          aria-label="Increase quantity"
+                          onClick={() => updateQuantity(item.id, 1)}
+                          className="w-6 h-6 rounded-full bg-white/15 hover:bg-[#FF6F9C] flex items-center justify-center transition cursor-pointer"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ) : (
+                      <Button
+                        variant="lime"
+                        size="sm"
+                        style={display}
+                        onClick={() =>
+                          addToBowl({
+                            id: item.id,
+                            name: item.name,
+                            price: parseFloat(item.price.replace("$", "")),
+                            priceFormatted: item.price,
+                            image: item.image,
+                            category: item.category,
+                          })
+                        }
+                      >
+                        <span>Add to Bowl</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Button>
+                    )}
                   </CardFooter>
                 </Card>
               </motion.div>
@@ -955,7 +1002,25 @@ export default function RecipesPage() {
               </div>
             </div>
 
-            <Button variant="lime" size="lg" style={display} className="w-full">
+            <Button
+              variant="lime"
+              size="lg"
+              style={display}
+              className="w-full"
+              onClick={() => {
+                const defaultRecipe =
+                  calcPetType === "cat" ? allRecipes[0] : allRecipes[2];
+                addToBowl({
+                  id: defaultRecipe.id,
+                  name: defaultRecipe.name,
+                  price: parseFloat(defaultRecipe.price.replace("$", "")),
+                  priceFormatted: defaultRecipe.price,
+                  image: defaultRecipe.image,
+                  category: defaultRecipe.category,
+                });
+                openBowl();
+              }}
+            >
               <span>Start Custom Box ({dailyPouches} Pouches/Day)</span>
               <ArrowRight className="w-4 h-4" />
             </Button>
