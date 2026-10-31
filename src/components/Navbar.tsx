@@ -36,7 +36,7 @@ export default function Navbar() {
     >
       {/* Clean, minimal, professional compact navbar with scroll-aware styling */}
       <nav
-        className={`pointer-events-auto mx-auto w-full max-w-[740px] flex items-center justify-between gap-4 px-5 py-2.5 rounded-full transition-all duration-300 ${
+        className={`pointer-events-auto mx-auto w-full max-w-[780px] flex items-center justify-between gap-3 px-5 py-2.5 rounded-full transition-all duration-300 ${
           scrolled
             ? "bg-[#E8457A]/88 backdrop-blur-xl border border-white/40 shadow-xl shadow-[#b8225c]/25"
             : "bg-white/20 backdrop-blur-md border border-white/35 shadow-lg shadow-[#d43f73]/10"
@@ -61,7 +61,7 @@ export default function Navbar() {
         </Link>
 
         {/* Page Navigation Links */}
-        <div className="hidden md:flex items-center gap-1.5">
+        <div className="hidden md:flex items-center gap-1">
           {navLinks.map((l) => {
             const isActive =
               l.href === "/" ? pathname === "/" : pathname?.startsWith(l.href);
@@ -69,7 +69,7 @@ export default function Navbar() {
               <Link
                 key={l.label}
                 href={l.href}
-                className={`px-4 py-1.5 rounded-full text-xs sm:text-[13px] font-medium transition-all duration-300 ${
+                className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-medium transition-all duration-300 ${
                   isActive
                     ? "bg-white text-[#E8457A] shadow-sm font-semibold"
                     : "text-white hover:bg-white/25"
@@ -81,8 +81,19 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Clean CTA Pill */}
+        {/* Clean CTA Pill & Auth Link */}
         <div className="flex items-center gap-2">
+          <Link
+            href="/login"
+            className={`hidden sm:inline-flex items-center px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold transition-all duration-300 border ${
+              pathname === "/login" || pathname === "/register"
+                ? "bg-white text-[#E8457A] border-white shadow-sm"
+                : "bg-white/20 text-white border-white/35 hover:bg-white/30"
+            }`}
+          >
+            Log in
+          </Link>
+
           <Link
             href="/#shop"
             style={{ fontFamily: "var(--font-display)" }}
@@ -110,7 +121,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="pointer-events-auto md:hidden mx-auto max-w-[740px] mt-2 p-4 rounded-3xl bg-white/95 backdrop-blur-xl shadow-xl flex flex-col gap-1 border border-pink-100"
+            className="pointer-events-auto md:hidden mx-auto max-w-[780px] mt-2 p-4 rounded-3xl bg-white/95 backdrop-blur-xl shadow-xl flex flex-col gap-1 border border-pink-100"
           >
             {navLinks.map((l) => {
               const isActive =
@@ -130,6 +141,23 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            <div className="h-px bg-pink-100 my-1.5" />
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <Link
+                href="/login"
+                onClick={() => setOpen(false)}
+                className="py-2 px-4 text-center text-sm font-semibold rounded-xl bg-[#FFF0F5] text-[#E8457A] hover:bg-pink-100 transition"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/register"
+                onClick={() => setOpen(false)}
+                className="py-2 px-4 text-center text-sm font-semibold rounded-xl bg-[#E8457A] text-white hover:bg-[#d4376b] transition"
+              >
+                Register
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
