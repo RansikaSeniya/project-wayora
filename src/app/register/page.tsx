@@ -359,7 +359,7 @@ export default function RegisterPage() {
             </motion.div>
           </div>
 
-          {/* Right: Animated Cat & Dog Showcase with Live Pet Name Badge */}
+          {/* Right: Animated Cat & Dog Showcase */}
           <div className="lg:col-span-6 relative flex flex-col items-center order-1 lg:order-2">
             <motion.div
               initial={{ opacity: 0, y: 30, scale: 0.92 }}
@@ -372,32 +372,6 @@ export default function RegisterPage() {
               }}
               className="relative w-full max-w-[470px] rounded-[38px] bg-[#FFE8F1]/90 backdrop-blur-md p-4 shadow-[0_30px_70px_-15px_rgba(140,20,70,0.42)] border border-white/75"
             >
-              {/* Floating Live Pet Name Tag (Top Right) */}
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="hidden sm:flex items-center gap-2.5 absolute -top-5 -right-5 z-30 bg-[#FFF2F7] px-4 py-2.5 rounded-3xl shadow-xl border-2 border-white"
-              >
-                <div className="w-9 h-9 rounded-2xl bg-[#D9F27A] text-[#233000] flex items-center justify-center">
-                  {petType === "dog" ? (
-                    <DogLogo className="w-5 h-5" />
-                  ) : (
-                    <CatLogo className="w-5 h-5" />
-                  )}
-                </div>
-                <div>
-                  <span
-                    style={display}
-                    className="text-xs font-bold text-[#1F1924] block"
-                  >
-                    {petName ? `${petName}’s Fresh Box` : "Custom Tasting Box"}
-                  </span>
-                  <span className="text-[10px] text-[#E8457A] font-semibold">
-                    20% Welcome Gift Active
-                  </span>
-                </div>
-              </motion.div>
-
               {/* Crossfading Cat & Dog Image Frame */}
               <div className="relative h-80 sm:h-[380px] w-full rounded-[30px] overflow-hidden bg-[#FFE4EE]">
                 <AnimatePresence mode="sync">

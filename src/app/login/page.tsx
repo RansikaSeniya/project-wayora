@@ -125,7 +125,7 @@ export default function LoginPage() {
 
       <section className="relative z-20 flex-1 max-w-[1340px] w-full mx-auto px-5 sm:px-8 md:px-14 pt-28 pb-14 flex items-center">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left: Animated Cat & Dog Visual Showcase with Floating Pet Thumbnails */}
+          {/* Left: Animated Cat & Dog Visual Showcase */}
           <div className="lg:col-span-6 relative flex flex-col items-center">
             <motion.div
               initial={{ opacity: 0, y: 30, scale: 0.92 }}
@@ -133,69 +133,6 @@ export default function LoginPage() {
               transition={{ type: "spring", stiffness: 110, damping: 15 }}
               className="relative w-full max-w-[470px] rounded-[38px] bg-[#FFE8F1]/90 backdrop-blur-md p-4 shadow-[0_30px_70px_-15px_rgba(140,20,70,0.42)] border border-white/75"
             >
-              {/* Floating Mini Dog Bubble (Top Right) */}
-              <motion.div
-                animate={{ y: [0, -9, 0], rotate: [2, 5, 2] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 4.2,
-                  ease: "easeInOut",
-                }}
-                className="hidden sm:flex items-center gap-2.5 absolute -top-6 -right-6 z-30 bg-[#FFF2F7] p-2 pr-3.5 rounded-3xl shadow-xl border-2 border-white"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=240&q=80"
-                  alt="Cute dog"
-                  className="w-12 h-12 rounded-2xl object-cover"
-                />
-                <div>
-                  <div className="flex items-center gap-1 text-[#E8457A]">
-                    <DogLogo className="w-3.5 h-3.5" />
-                    <span
-                      style={display}
-                      className="text-xs font-bold text-[#1F1924]"
-                    >
-                      Cooper’s Box
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-[#2BB673] font-semibold block">
-                    Freshly Steamed
-                  </span>
-                </div>
-              </motion.div>
-
-              {/* Floating Mini Cat Bubble (Bottom Left) */}
-              <motion.div
-                animate={{ y: [0, 8, 0], rotate: [-3, -1, -3] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 3.8,
-                  delay: 0.4,
-                  ease: "easeInOut",
-                }}
-                className="hidden sm:flex items-center gap-2.5 absolute -bottom-5 -left-6 z-30 bg-[#FFF2F7] p-2 pr-3.5 rounded-3xl shadow-xl border-2 border-white"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=240&q=80"
-                  alt="Cute cat"
-                  className="w-12 h-12 rounded-2xl object-cover"
-                />
-                <div>
-                  <div className="flex items-center gap-1 text-[#E8457A]">
-                    <CatLogo className="w-3.5 h-3.5" />
-                    <span
-                      style={display}
-                      className="text-xs font-bold text-[#1F1924]"
-                    >
-                      Luna’s Salmon
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-[#7D6E85] font-medium block">
-                    Delivered Monthly
-                  </span>
-                </div>
-              </motion.div>
-
               {/* Main Crossfading Cat & Dog Image Frame */}
               <div className="relative h-80 sm:h-[380px] w-full rounded-[30px] overflow-hidden bg-[#FFE4EE]">
                 <AnimatePresence mode="sync">

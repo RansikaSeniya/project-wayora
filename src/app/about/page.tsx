@@ -303,7 +303,7 @@ export default function AboutPage() {
     <main className="min-h-screen bg-gradient-to-b from-[#FFD4E3] via-[#FFDFEB] to-[#FFD2E2] text-[#2A1621] overflow-x-hidden">
       {/* 1. Immersive Pink/Coral Hero */}
       <section
-        className="relative w-full min-h-[90vh] flex flex-col justify-between overflow-hidden"
+        className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden"
         style={{
           background:
             "radial-gradient(70% 80% at 50% 45%, #FFB3C8 0%, #FF8FB1 45%, #FF6F9C 100%)",
@@ -312,188 +312,190 @@ export default function AboutPage() {
         {/* Giant Background Watermark Text (Reverted to subtle style) */}
         <div
           style={display}
-          className="absolute top-[18%] inset-x-0 text-center text-[19vw] font-bold text-white/10 leading-none select-none pointer-events-none whitespace-nowrap"
+          className="absolute top-[22%] inset-x-0 text-center text-[19vw] font-bold text-white/10 leading-none select-none pointer-events-none whitespace-nowrap"
         >
           OUR STORY
         </div>
 
         <Navbar />
 
-        <div className="relative z-20 max-w-[1380px] mx-auto w-full px-6 sm:px-10 md:px-14 py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Hero Copy */}
-          <div className="lg:col-span-6 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: "easeOut" }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/25 backdrop-blur-md border border-white/40 text-white text-xs sm:text-sm font-semibold shadow-sm"
-              style={display}
-            >
-              <span>Born From Love • Backed By Veterinary Science</span>
-            </motion.div>
+        <div className="relative z-20 flex-1 flex items-center max-w-[1380px] mx-auto w-full px-6 sm:px-10 md:px-14 pt-28 sm:pt-32 pb-16 lg:py-24">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+            {/* Left Hero Copy */}
+            <div className="lg:col-span-6 space-y-6 sm:space-y-7">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92, y: 12 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/25 backdrop-blur-md border border-white/40 text-white text-xs sm:text-sm font-semibold shadow-sm"
+                style={display}
+              >
+                <span>Born From Love • Backed By Veterinary Science</span>
+              </motion.div>
 
-            <h1
-              style={display}
-              className="text-white font-bold leading-[0.93] tracking-tight text-5xl sm:text-6xl xl:text-[68px] drop-shadow-[0_6px_0_rgba(190,40,100,0.22)]"
-            >
-              {["WE COOK REAL", "FOOD FOR PETS", "WHO ARE FAMILY."].map(
-                (line, idx) => (
-                  <span
-                    key={line}
-                    className="block overflow-hidden pb-[0.06em]"
-                  >
-                    <motion.span
-                      initial={{ y: "110%", rotate: 3 }}
-                      animate={{ y: "0%", rotate: 0 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 120,
-                        damping: 14,
-                        delay: 0.15 + idx * 0.14,
-                      }}
-                      className="inline-block"
+              <h1
+                style={display}
+                className="text-white font-bold leading-[0.94] tracking-tight text-5xl sm:text-6xl xl:text-[72px] drop-shadow-[0_6px_0_rgba(190,40,100,0.22)]"
+              >
+                {["WE COOK REAL", "FOOD FOR PETS", "WHO ARE FAMILY."].map(
+                  (line, idx) => (
+                    <span
+                      key={line}
+                      className="block overflow-hidden pb-[0.06em]"
                     >
                       <motion.span
-                        animate={{ y: [0, -4, 0] }}
+                        initial={{ y: "110%", rotate: 3 }}
+                        animate={{ y: "0%", rotate: 0 }}
                         transition={{
-                          repeat: Infinity,
-                          duration: 3.8,
-                          delay: idx * 0.3,
-                          ease: "easeInOut",
+                          type: "spring",
+                          stiffness: 120,
+                          damping: 14,
+                          delay: 0.15 + idx * 0.14,
                         }}
                         className="inline-block"
                       >
-                        {line}
+                        <motion.span
+                          animate={{ y: [0, -4, 0] }}
+                          transition={{
+                            repeat: Infinity,
+                            duration: 3.8,
+                            delay: idx * 0.3,
+                            ease: "easeInOut",
+                          }}
+                          className="inline-block"
+                        >
+                          {line}
+                        </motion.span>
                       </motion.span>
-                    </motion.span>
+                    </span>
+                  )
+                )}
+              </h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55, duration: 0.6 }}
+                className="text-white/95 text-base sm:text-lg max-w-xl leading-relaxed"
+              >
+                We started Wayora with a simple question: why do we feed our most
+                loyal companions ultra-processed brown pellets? Our kitchen
+                gently steams real whole meats and garden superfoods for visible
+                health in every bowl.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.75, duration: 0.6 }}
+                className="flex flex-wrap items-center gap-4 pt-2"
+              >
+                <Link
+                  href="#kitchen"
+                  style={display}
+                  className="group inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#D9F27A] text-[#2d3a00] text-base sm:text-lg font-semibold shadow-xl shadow-black/10 hover:scale-105 active:scale-95 transition"
+                >
+                  Tour Our Kitchen
+                  <span className="w-10 h-10 rounded-full bg-[#2d3a00] text-[#D9F27A] flex items-center justify-center">
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                   </span>
-                )
-              )}
-            </h1>
+                </Link>
 
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55, duration: 0.6 }}
-              className="text-white/95 text-base sm:text-lg max-w-xl leading-relaxed"
-            >
-              We started Wayora with a simple question: why do we feed our most
-              loyal companions ultra-processed brown pellets? Our kitchen
-              gently steams real whole meats and garden superfoods for visible
-              health in every bowl.
-            </motion.p>
+                <Link
+                  href="/#shop"
+                  style={display}
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white text-sm sm:text-base font-semibold hover:bg-white hover:text-[#E8457A] transition"
+                >
+                  <span>View All Recipes</span>
+                </Link>
+              </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.75, duration: 0.6 }}
-              className="flex flex-wrap items-center gap-4 pt-2"
-            >
-              <Link
-                href="#kitchen"
-                style={display}
-                className="group inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#D9F27A] text-[#2d3a00] text-base sm:text-lg font-semibold shadow-xl shadow-black/10 hover:scale-105 active:scale-95 transition"
+            {/* Right Auto-Shading / Crossfading 3-Image Showcase */}
+            <div className="lg:col-span-6 relative flex items-center justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.25 }}
+                className="relative w-full max-w-[450px] rounded-[36px] bg-[#FFE8F1]/90 backdrop-blur-md p-4 shadow-[0_30px_70px_-15px_rgba(140,20,70,0.45)] border border-white/70"
               >
-                Tour Our Kitchen
-                <span className="w-10 h-10 rounded-full bg-[#2d3a00] text-[#D9F27A] flex items-center justify-center">
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </Link>
+                {/* Crossfading / Shading Image Container */}
+                <div className="relative h-80 sm:h-[400px] w-full rounded-[28px] overflow-hidden bg-[#FFE4EE]">
+                  <AnimatePresence mode="sync">
+                    <motion.div
+                      key={heroSlide}
+                      initial={{ opacity: 0, scale: 1.08, filter: "blur(8px)" }}
+                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, scale: 0.96, filter: "blur(6px)" }}
+                      transition={{ duration: 0.95, ease: "easeInOut" }}
+                      className="absolute inset-0"
+                    >
+                      <img
+                        src={heroSlides[heroSlide].image}
+                        alt={heroSlides[heroSlide].title}
+                        className="w-full h-full object-cover object-center"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                      <div className="absolute top-4 left-4 z-20 inline-flex items-center px-4 py-1.5 rounded-full bg-[#1F1924]/75 backdrop-blur-md border border-white/35 text-white shadow-lg">
+                        <span
+                          style={display}
+                          className="text-[11px] font-bold tracking-wider uppercase text-white/95"
+                        >
+                          {heroSlides[heroSlide].badge}
+                        </span>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
 
-              <Link
-                href="/#shop"
-                style={display}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white text-sm sm:text-base font-semibold hover:bg-white hover:text-[#E8457A] transition"
-              >
-                <span>View All Recipes</span>
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Right Auto-Shading / Crossfading 3-Image Showcase */}
-          <div className="lg:col-span-6 relative flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.25 }}
-              className="relative w-full max-w-[420px] rounded-[36px] bg-[#FFE8F1]/90 backdrop-blur-md p-4 shadow-[0_30px_70px_-15px_rgba(140,20,70,0.45)] border border-white/70"
-            >
-              {/* Crossfading / Shading Image Container */}
-              <div className="relative h-80 sm:h-96 w-full rounded-[28px] overflow-hidden bg-[#FFE4EE]">
-                <AnimatePresence mode="sync">
-                  <motion.div
-                    key={heroSlide}
-                    initial={{ opacity: 0, scale: 1.08, filter: "blur(8px)" }}
-                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 0.96, filter: "blur(6px)" }}
-                    transition={{ duration: 0.95, ease: "easeInOut" }}
-                    className="absolute inset-0"
-                  >
-                    <img
-                      src={heroSlides[heroSlide].image}
-                      alt={heroSlides[heroSlide].title}
-                      className="w-full h-full object-cover object-center"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-                    <div className="absolute top-4 left-4 z-20 inline-flex items-center px-4 py-1.5 rounded-full bg-[#1F1924]/75 backdrop-blur-md border border-white/35 text-white shadow-lg">
-                      <span
-                        style={display}
-                        className="text-[11px] font-bold tracking-wider uppercase text-white/95"
-                      >
-                        {heroSlides[heroSlide].badge}
-                      </span>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Slide Indicator Dots */}
-                <div className="absolute bottom-4 inset-x-0 z-20 flex items-center justify-center gap-2">
-                  {heroSlides.map((_, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      aria-label={`Slide ${idx + 1}`}
-                      onClick={() => setHeroSlide(idx)}
-                      className={`h-2 rounded-full transition-all duration-500 cursor-pointer ${
-                        heroSlide === idx
-                          ? "w-7 bg-[#D9F27A]"
-                          : "w-2 bg-white/60 hover:bg-white"
-                      }`}
-                    />
-                  ))}
+                  {/* Slide Indicator Dots */}
+                  <div className="absolute bottom-4 inset-x-0 z-20 flex items-center justify-center gap-2">
+                    {heroSlides.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        aria-label={`Slide ${idx + 1}`}
+                        onClick={() => setHeroSlide(idx)}
+                        className={`h-2 rounded-full transition-all duration-500 cursor-pointer ${
+                          heroSlide === idx
+                            ? "w-7 bg-[#D9F27A]"
+                            : "w-2 bg-white/60 hover:bg-white"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Dynamic Caption Footer with Cat/Dog Logo */}
-              <div className="pt-4 px-2">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={heroSlide}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.35 }}
-                    className="flex items-center gap-3.5"
-                  >
-                    <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#FFF0F5] to-[#FFE0EC] text-[#E8457A] flex items-center justify-center shrink-0 border border-[#F9BDD3] shadow-sm">
-                      {heroSlides[heroSlide].petType === "dog" ? (
-                        <DogLogo className="w-5 h-5" />
-                      ) : (
-                        <CatLogo className="w-5 h-5" />
-                      )}
-                    </div>
-                    <div>
-                      <p style={display} className="text-xl font-bold text-[#1F1924]">
-                        {heroSlides[heroSlide].title}
-                      </p>
-                      <p className="text-xs text-[#7D6E85]">
-                        {heroSlides[heroSlide].subtitle}
-                      </p>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </motion.div>
+                {/* Dynamic Caption Footer with Cat/Dog Logo */}
+                <div className="pt-4 px-2">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={heroSlide}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.35 }}
+                      className="flex items-center gap-3.5"
+                    >
+                      <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#FFF0F5] to-[#FFE0EC] text-[#E8457A] flex items-center justify-center shrink-0 border border-[#F9BDD3] shadow-sm">
+                        {heroSlides[heroSlide].petType === "dog" ? (
+                          <DogLogo className="w-5 h-5" />
+                        ) : (
+                          <CatLogo className="w-5 h-5" />
+                        )}
+                      </div>
+                      <div>
+                        <p style={display} className="text-xl font-bold text-[#1F1924]">
+                          {heroSlides[heroSlide].title}
+                        </p>
+                        <p className="text-xs text-[#7D6E85]">
+                          {heroSlides[heroSlide].subtitle}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
 
