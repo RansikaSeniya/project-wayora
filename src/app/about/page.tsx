@@ -499,9 +499,9 @@ export default function AboutPage() {
 
         {/* Bottom Infinite Marquee Strip */}
         <div className="relative z-20 bg-white/15 backdrop-blur-md border-t border-white/30 py-3.5 overflow-hidden">
-          <div className="flex whitespace-nowrap gap-12 text-xs sm:text-sm tracking-[0.18em] font-semibold text-white uppercase">
+          <div className="animate-marquee whitespace-nowrap text-xs sm:text-sm tracking-[0.18em] font-semibold text-white uppercase">
             {[...Array(2)].map((_, i) => (
-              <div key={i} className="flex shrink-0 items-center gap-12 animate-marquee">
+              <div key={i} className="flex shrink-0 items-center gap-12 pr-12">
                 <span>100% HUMAN-GRADE WHOLE CUTS</span>
                 <span>SLOW-STEAMED AT 82°C</span>
                 <span>FORMULATED BY BOARD-CERTIFIED VETS</span>
