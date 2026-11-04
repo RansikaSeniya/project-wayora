@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Fredoka, Plus_Jakarta_Sans } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import { BowlProvider } from "@/components/BowlContext";
 
-const fredoka = Fredoka({
+const outfit = Outfit({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fredoka.variable} ${jakarta.variable} scroll-smooth`}
+      className={`${outfit.variable} ${jakarta.variable} scroll-smooth`}
     >
       <body className="min-h-screen bg-[#E2E1DF] text-[#1A1A1A] font-sans antialiased selection:bg-[#E76F51] selection:text-white">
         <BowlProvider>
