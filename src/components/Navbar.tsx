@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "Our Story", href: "/about" },
   { label: "Recipes", href: "/recipes" },
+  { label: "Meal Plan", href: "/plan" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -53,7 +54,7 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
     >
       {/* Clean, minimal, professional compact navbar with scroll-aware styling */}
       <nav
-        className={`pointer-events-auto mx-auto w-full max-w-[780px] flex items-center justify-between gap-3 px-5 py-2.5 rounded-full transition-all duration-500 ease-out ${
+        className={`pointer-events-auto mx-auto w-full max-w-[830px] flex items-center justify-between gap-2.5 px-5 py-2 rounded-full transition-all duration-500 ease-out ${
           scrolled
             ? "bg-[#E8457A]/90 backdrop-blur-xl border border-white/45 shadow-xl shadow-[#b8225c]/25"
             : "bg-white/22 backdrop-blur-md border border-white/35 shadow-lg shadow-[#d43f73]/10"
@@ -196,7 +197,7 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 360, damping: 28 }}
-            className="pointer-events-auto md:hidden mx-auto max-w-[780px] mt-2 p-4 rounded-3xl bg-white/95 backdrop-blur-xl shadow-xl flex flex-col gap-1 border border-pink-100"
+            className="pointer-events-auto md:hidden mx-auto max-w-[830px] mt-2 p-4 rounded-3xl bg-white/95 backdrop-blur-xl shadow-xl flex flex-col gap-1 border border-pink-100"
           >
             {navLinks.map((l) => {
               const isActive =

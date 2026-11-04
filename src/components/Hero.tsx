@@ -220,16 +220,26 @@ export default function Hero() {
                   transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
                   className="inline-block"
                 >
-                  <Link
-                    href="#shop"
-                    style={display}
-                    className="group inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#D9F27A] text-[#2d3a00] text-lg font-semibold shadow-xl shadow-black/10 hover:scale-105 active:scale-95 transition"
-                  >
-                    Feed me!
-                    <span className="w-10 h-10 rounded-full bg-[#2d3a00] text-[#D9F27A] flex items-center justify-center">
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                    </span>
-                  </Link>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Link
+                      href="/plan"
+                      style={display}
+                      className="group inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#D9F27A] text-[#2d3a00] text-lg font-semibold shadow-xl shadow-black/10 hover:scale-105 active:scale-95 transition"
+                    >
+                      Build Meal Plan
+                      <span className="w-10 h-10 rounded-full bg-[#2d3a00] text-[#D9F27A] flex items-center justify-center">
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                      </span>
+                    </Link>
+
+                    <Link
+                      href="#shop"
+                      style={display}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white text-base font-semibold hover:bg-white hover:text-[#E8457A] transition"
+                    >
+                      <span>Explore Recipes</span>
+                    </Link>
+                  </div>
                 </motion.div>
               </motion.div>
             </div>
