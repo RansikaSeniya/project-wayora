@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
@@ -406,16 +407,21 @@ export function BowlProvider({ children }: { children: React.ReactNode }) {
                     </div>
                   </div>
 
-                  <Button
-                    variant="lime"
-                    size="lg"
-                    onClick={handleCheckout}
-                    style={display}
-                    className="w-full"
+                  <Link
+                    href="/checkout"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full block"
                   >
-                    <span>Complete Fresh Bowl Order</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
+                    <Button
+                      variant="lime"
+                      size="lg"
+                      style={display}
+                      className="w-full"
+                    >
+                      <span>Proceed to Chilled Checkout</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
                 </div>
               )}
             </motion.aside>
