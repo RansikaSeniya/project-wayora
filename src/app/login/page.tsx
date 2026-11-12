@@ -247,11 +247,16 @@ export default function LoginPage() {
                   <p className="text-sm text-[#6E5664]">
                     You’re signed in to your Wayora Pet Kitchen account.
                   </p>
-                  <div className="pt-2">
+                  <div className="pt-2 flex flex-wrap justify-center gap-3">
+                    <Link href="/dashboard">
+                      <Button variant="lime" size="lg" style={display}>
+                        <span>Open My Pet Portal</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
                     <Link href="/recipes">
                       <Button variant="pink" size="lg" style={display}>
-                        <span>Go to Fresh Recipes</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <span>Fresh Recipes</span>
                       </Button>
                     </Link>
                   </div>

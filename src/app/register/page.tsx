@@ -158,11 +158,16 @@ export default function RegisterPage() {
                     Your 20% first-box discount has been unlocked for{" "}
                     {petName ? `${petName}’s` : "your pet’s"} custom bowl.
                   </p>
-                  <div className="pt-2">
+                  <div className="pt-2 flex flex-wrap justify-center gap-3">
+                    <Link href="/dashboard">
+                      <Button variant="lime" size="lg" style={display}>
+                        <span>Open Pet Portal</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
                     <Link href="/recipes">
                       <Button variant="pink" size="lg" style={display}>
-                        <span>Choose First Recipes</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <span>Choose Recipes</span>
                       </Button>
                     </Link>
                   </div>
