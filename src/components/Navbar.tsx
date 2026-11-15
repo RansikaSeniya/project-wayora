@@ -57,9 +57,9 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
     >
       {/* Clean, minimal, professional compact navbar with scroll-aware styling */}
       <nav
-        className={`pointer-events-auto mx-auto w-full max-w-[890px] flex items-center justify-between gap-2 px-5 py-2 rounded-full transition-all duration-500 ease-out ${
+        className={`pointer-events-auto mx-auto w-full max-w-[1040px] flex items-center justify-between gap-3 px-5 sm:px-6 py-2 rounded-full transition-all duration-500 ease-out ${
           scrolled
-            ? "bg-[#E8457A]/90 backdrop-blur-xl border border-white/45 shadow-xl shadow-[#b8225c]/25"
+            ? "bg-[#E8457A]/92 backdrop-blur-xl border border-white/45 shadow-xl shadow-[#b8225c]/25"
             : "bg-white/22 backdrop-blur-md border border-white/35 shadow-lg shadow-[#d43f73]/10"
         }`}
       >
@@ -67,16 +67,16 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
         <Link
           href="/"
           onClick={() => setActivePath("/")}
-          className="flex items-center gap-1.5 text-[#FFF6C5] hover:opacity-95 transition-transform duration-300 hover:scale-[1.03] active:scale-95"
+          className="flex items-center gap-1.5 text-[#FFF6C5] hover:opacity-95 transition-transform duration-300 hover:scale-[1.03] active:scale-95 shrink-0 whitespace-nowrap"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          <span className="text-xl sm:text-[22px] font-bold tracking-wide drop-shadow-sm">
+          <span className="text-xl sm:text-[22px] font-bold tracking-wide drop-shadow-sm whitespace-nowrap">
             WAYORA
           </span>
           <motion.span
             animate={{ rotate: [-10, 10, -10] }}
             transition={{ repeat: Infinity, duration: 2.6, ease: "easeInOut" }}
-            className="inline-flex text-white"
+            className="inline-flex text-white shrink-0"
           >
             <PawPrint className="w-4 h-4 fill-current" />
           </motion.span>
@@ -84,7 +84,7 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
 
         {/* Page Navigation Links with Smooth Sliding Active & Hover Pills */}
         <div
-          className="hidden md:flex items-center gap-1 relative"
+          className="hidden md:flex items-center gap-0.5 lg:gap-1 relative shrink-0"
           onMouseLeave={() => setHoveredHref(null)}
         >
           {navLinks.map((l) => {
@@ -98,7 +98,7 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
                 href={l.href}
                 onClick={() => setActivePath(l.href)}
                 onMouseEnter={() => setHoveredHref(l.href)}
-                className="relative px-4 py-1.5 rounded-full text-xs sm:text-[13px] font-medium transition-colors duration-300 select-none"
+                className="relative px-3 lg:px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-medium transition-colors duration-300 select-none whitespace-nowrap shrink-0"
               >
                 {/* Sliding Active White Pill */}
                 {isActive && (
@@ -130,7 +130,7 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
                 <motion.span
                   whileTap={{ scale: 0.93 }}
                   transition={{ type: "spring", stiffness: 500, damping: 25 }}
-                  className={`relative z-10 inline-block transition-colors duration-200 ${
+                  className={`relative z-10 inline-block transition-colors duration-200 whitespace-nowrap ${
                     isActive
                       ? "text-[#E8457A] font-semibold"
                       : "text-white"
@@ -144,17 +144,17 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
         </div>
 
         {/* Clean CTA Pill & Auth Link */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <Link
             href="/login"
             onClick={() => setActivePath("/login")}
-            className="hidden sm:inline-flex"
+            className="hidden sm:inline-flex shrink-0"
           >
             <motion.span
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.93 }}
               transition={{ type: "spring", stiffness: 420, damping: 22 }}
-              className={`relative inline-flex items-center px-4 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold transition-colors duration-300 border ${
+              className={`relative inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold transition-colors duration-300 border whitespace-nowrap ${
                 isAuthActive
                   ? "bg-white text-[#E8457A] border-white shadow-sm"
                   : "bg-white/20 text-white border-white/35 hover:bg-white/30"
@@ -168,15 +168,16 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
             href="/#shop"
             onClick={() => setActivePath("/")}
             style={{ fontFamily: "var(--font-display)" }}
+            className="shrink-0"
           >
             <motion.span
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.93 }}
               transition={{ type: "spring", stiffness: 420, damping: 22 }}
-              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-1.5 rounded-full bg-[#D9F27A] text-[#243000] text-xs sm:text-[13px] font-semibold shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4.5 py-1.5 rounded-full bg-[#D9F27A] text-[#243000] text-xs sm:text-[13px] font-semibold shadow-sm whitespace-nowrap"
             >
-              <PawPrint className="w-3.5 h-3.5 fill-[#243000]" />
-              <span>Shop now</span>
+              <PawPrint className="w-3.5 h-3.5 fill-[#243000] shrink-0" />
+              <span className="whitespace-nowrap">Shop now</span>
             </motion.span>
           </Link>
 
@@ -207,7 +208,7 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
             aria-label="Menu"
             whileTap={{ scale: 0.9 }}
             onClick={() => setOpen(!open)}
-            className="md:hidden w-8 h-8 rounded-full bg-white text-[#E8457A] flex items-center justify-center cursor-pointer shadow-sm"
+            className="md:hidden w-8 h-8 rounded-full bg-white text-[#E8457A] flex items-center justify-center cursor-pointer shadow-sm shrink-0"
           >
             {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </motion.button>
@@ -222,7 +223,7 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 360, damping: 28 }}
-            className="pointer-events-auto md:hidden mx-auto max-w-[890px] mt-2 p-4 rounded-3xl bg-white/95 backdrop-blur-xl shadow-xl flex flex-col gap-1 border border-pink-100"
+            className="pointer-events-auto md:hidden mx-auto max-w-[1040px] mt-2 p-4 rounded-3xl bg-white/95 backdrop-blur-xl shadow-xl flex flex-col gap-1 border border-pink-100"
           >
             {navLinks.map((l) => {
               const isActive =
