@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PawPrint, X, Menu } from "lucide-react";
+import { PawPrint, X, Menu, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useBowl } from "@/components/BowlContext";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -16,6 +17,7 @@ const navLinks = [
 ];
 
 export default function Navbar({ persistent = false }: { persistent?: boolean }) {
+  const { totalCount, openBowl } = useBowl();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hoveredHref, setHoveredHref] = useState<string | null>(null);
@@ -177,6 +179,28 @@ export default function Navbar({ persistent = false }: { persistent?: boolean })
               <span>Shop now</span>
             </motion.span>
           </Link>
+
+          {/* Quick Pet Bowl Trigger */}
+          <motion.button
+            type="button"
+            aria-label="Open My Pet's Bowl"
+            onClick={openBowl}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            className="relative w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center border border-white/35 transition cursor-pointer shadow-sm shrink-0"
+          >
+            <ShoppingBag className="w-3.5 h-3.5" />
+            {totalCount > 0 && (
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#D9F27A] text-[#243000] text-[10px] font-bold flex items-center justify-center shadow-sm"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                {totalCount}
+              </motion.span>
+            )}
+          </motion.button>
 
           <motion.button
             type="button"

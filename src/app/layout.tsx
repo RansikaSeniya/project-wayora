@@ -3,6 +3,7 @@ import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
+import BackToTop from "@/components/BackToTop";
 import { BowlProvider } from "@/components/BowlContext";
 
 const outfit = Outfit({
@@ -39,6 +40,7 @@ export default function RootLayout({
         <BowlProvider>
           <Navbar persistent />
           <SmoothScroll>{children}</SmoothScroll>
+          <BackToTop />
         </BowlProvider>
       </body>
     </html>
